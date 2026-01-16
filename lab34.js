@@ -1,21 +1,17 @@
 const fs = require('fs');
 const log = console.log;
 
-// ×òåíèå è îáðàáîòêà äàííûõ
 const students = require('./student.json')
-    .sort((a, b) => b.avg - a.avg);  // ñîðòèðîâêà ïî óáûâàíèþ ðåéòèíãà
+    .sort((a, b) => b.avg - a.avg);  
 
-// Ïîèñê ïåðâîãî îáúåêòà ñ ðåéòèíãîì íèæå 4.0
 const firstBelow40 = students.find(student => student.avg < 4.0);
 
-// Ïîèñê ïîñëåäíåãî îáúåêòà ñ ðåéòèíãîì >= 4.0
 const lastAbove40 = students
     .filter(student => student.avg >= 4.0)
-    .slice(-1)[0];  // áåðåì ïîñëåäíèé ýëåìåíò
+    .slice(-1)[0];  
 
-// Âûâîä ðåçóëüòàòîâ
-log("=== ÏÅÐÂÛÉ ÑÒÓÄÅÍÒ Ñ ÐÅÉÒÈÍÃÎÌ ÍÈÆÅ 4.0 ===");
+log("=== ÐŸÐµÑ€Ð²Ñ‹Ð¹ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚ Ñ Ñ€ÐµÐ¹Ñ‚Ð¸Ð½Ð³Ð¾Ð¼ Ð½Ð¸Ð¶Ðµ  4.0 ===");
 log(JSON.stringify(firstBelow40, null, 4));
 
-log("\n=== ÏÎÑËÅÄÍÈÉ ÑÒÓÄÅÍÒ Ñ ÐÅÉÒÈÍÃÎÌ >= 4.0 ===");
+log("\n=== ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚ Ñ Ñ€ÐµÐ¹Ñ‚Ð¸Ð½Ð³Ð¾Ð¼ >= 4.0 ===");
 log(JSON.stringify(lastAbove40, null, 4));

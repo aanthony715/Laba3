@@ -1,7 +1,6 @@
 const fs = require('fs');
 const log = console.log;
 
-// Чтение и обработка в одной цепочке
 require('./student.json')
     .sort((a, b) => b.avg - a.avg)
     .slice(0, 5)

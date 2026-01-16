@@ -1,19 +1,19 @@
 const fs = require('fs');
 const log = console.log;
 
-// Функция для получения случайного целого числа
+
 const getRndInt = (max) => Math.floor(Math.random() * max);
 
-// Функция для получения русского алфавита
+
 const getAlphabet = (start = 1072) => Array(32)
     .fill('')
     .map((_, i) => String.fromCharCode(start + i))
     .join('');
 
-// Функция для генерации фамилии
+
 const getLastName = () => {
     const alph = getAlphabet();
-    const len = 3 + getRndInt(10); // от 3 до 12 символов
+    const len = 3 + getRndInt(10); // Г®ГІ 3 Г¤Г® 12 Г±ГЁГ¬ГўГ®Г«Г®Гў
     return alph[getRndInt(alph.length)].toUpperCase() +
         Array(len - 1)
             .fill('')
@@ -21,53 +21,53 @@ const getLastName = () => {
             .join('');
 };
 
-// Функция для генерации среднего балла
-const getAvg = () => parseFloat((2 + getRndInt(31) / 10).toFixed(1)); // от 2.0 до 5.0 с точностью до 1 знака
 
-// Функция для создания объекта студента
+const getAvg = () => parseFloat((2 + getRndInt(31) / 10).toFixed(1)); 
+
+
 const getStudent = (id) => ({
     id: id,
     lastName: getLastName(),
     avg: getAvg()
 });
 
-// Основная функция для генерации массива студентов
+
 const generateStudents = (amount = 10) => Array
     .from({ length: amount }, (_, i) => getStudent(i + 1));
 
-// Генерация массива студентов
-const students = generateStudents(5); // можно изменить количество студентов
 
-// Вывод в консоль
-log('Сгенерированный массив студентов:');
+const students = generateStudents(5); 
+
+
+log('Г‘ГЈГҐГ­ГҐГ°ГЁГ°Г®ГўГ Г­Г­Г»Г© Г¬Г Г±Г±ГЁГў Г±ГІГіГ¤ГҐГ­ГІГ®Гў:');
 log(JSON.stringify(students, null, 4));
 
-// Сохранение в файл
+
 const jsonString = JSON.stringify(students, null, 4);
 fs.writeFileSync('./student.json', jsonString, 'utf-8');
-log('\nДанные сохранены в файл student.json');
+log('\nГ„Г Г­Г­Г»ГҐ Г±Г®ГµГ°Г Г­ГҐГ­Г» Гў ГґГ Г©Г« student.json');
 
-// Дополнительные примеры использования методов массива (для демонстрации)
-log('\n--- Дополнительные операции с массивом ---');
 
-// Фильтрация студентов с avg >= 4.0
+log('\n--- Г„Г®ГЇГ®Г«Г­ГЁГІГҐГ«ГјГ­Г»ГҐ Г®ГЇГҐГ°Г Г¶ГЁГЁ Г± Г¬Г Г±Г±ГЁГўГ®Г¬ ---');
+
 const goodStudents = students.filter(student => student.avg >= 4.0);
-log(`Студенты с avg >= 4.0: ${JSON.stringify(goodStudents, null, 2)}`);
+log(`Г‘ГІГіГ¤ГҐГ­ГІГ» Г± avg >= 4.0: ${JSON.stringify(goodStudents, null, 2)}`);
 
-// Поиск студента с максимальным avg
+
 const bestStudent = students.reduce((max, student) =>
     student.avg > max.avg ? student : max, students[0]);
-log(`Лучший студент: ${bestStudent.lastName} (avg: ${bestStudent.avg})`);
+log(`Г‹ГіГ·ГёГЁГ© Г±ГІГіГ¤ГҐГ­ГІ: ${bestStudent.lastName} (avg: ${bestStudent.avg})`);
 
-// Сортировка по фамилии
+
 const sortedByLastName = [...students].sort((a, b) =>
     a.lastName.localeCompare(b.lastName));
-log('Студенты отсортированные по фамилии:');
+log('Г‘ГІГіГ¤ГҐГ­ГІГ» Г®ГІГ±Г®Г°ГІГЁГ°Г®ГўГ Г­Г­Г»ГҐ ГЇГ® ГґГ Г¬ГЁГ«ГЁГЁ:');
 log(JSON.stringify(sortedByLastName, null, 2));
 
-// Проверка условий
+
 const hasExcellentStudents = students.some(student => student.avg >= 4.5);
 const allHaveGoodAvg = students.every(student => student.avg >= 2.0);
 
-log(`Есть ли отличники (avg >= 4.5): ${hasExcellentStudents}`);
-log(`Все ли студенты имеют avg >= 2.0: ${allHaveGoodAvg}`);
+log(`Г…Г±ГІГј Г«ГЁ Г®ГІГ«ГЁГ·Г­ГЁГЄГЁ (avg >= 4.5): ${hasExcellentStudents}`);
+
+log(`Г‚Г±ГҐ Г«ГЁ Г±ГІГіГ¤ГҐГ­ГІГ» ГЁГ¬ГҐГѕГІ avg >= 2.0: ${allHaveGoodAvg}`);
